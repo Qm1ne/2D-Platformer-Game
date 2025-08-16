@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : MonoBehaviour //shouldv made it a singleton
 {
     [SerializeField] private Animator player_animator;
     [SerializeField] private Rigidbody2D player_rigidbody;
     [SerializeField] private Collider2D player_collider;
     [SerializeField] private float health = 100f;
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private bool havekey = false;
 
     [SerializeField] private string playerName = "Player";
     [SerializeField] private float speed = 5f;
@@ -32,6 +35,11 @@ public class PlayerControl : MonoBehaviour
     {
         get { return playerName; }
         set { playerName = value; }
+    }
+    public bool HaveKey
+    {
+        get { return havekey; }
+        set { havekey = value; }
     }
     public float Health
     {
@@ -64,7 +72,11 @@ public class PlayerControl : MonoBehaviour
                 canInteract = false;
                 // Additional logic for when the player dies, e.g., playing death animation
                 Debug.Log("Player is dead.");
+                player_animator.SetTrigger("Hurt");
                 player_animator.SetTrigger("Dead");
+                
+
+                
             }
             else
             {
@@ -101,15 +113,16 @@ public class PlayerControl : MonoBehaviour
     {
         get { return attackpower; }
         set
-        { if (haveWeapon) // Ensure the player has a weapon before setting attack power
+        {
+            if (haveWeapon) // Ensure the player has a weapon before setting attack power
             {
-                attackpower = value+ 5f; // Example of modifying attack power
+                attackpower = value + 5f; // Example of modifying attack power
             }
             else
             {
                 attackpower = value; // Set attack power without modification if no weapon
             }
-            
+
         }
     }
     // Start is called before the first frame update
@@ -122,7 +135,7 @@ public class PlayerControl : MonoBehaviour
     }
     private Vector2 originalColliderSize;
     private Vector2 originalColliderOffset;
-    
+
     void Start()
     {
         // Store the original collider size and offset
@@ -150,7 +163,7 @@ public class PlayerControl : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         Vector3 movement = new Vector3(moveHorizontal, 0, 0) * speed * Time.deltaTime;
         transform.Translate(movement);
-        
+
         // Handle sprite flipping and animation
         if (moveHorizontal != 0)
         {
@@ -178,7 +191,7 @@ public class PlayerControl : MonoBehaviour
                 player_rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 player_animator.SetFloat("VerticalSpeed", moveVertical);
                 player_animator.SetBool("Grounded", false);
-                
+
                 // Jumping - make collider taller and thinner, move it up
                 boxCollider.size = new Vector2(originalColliderSize.x * 0.8f, originalColliderSize.y * 0.5f);
                 // Move the collider up by 10% of its height to match the jump animation
@@ -189,7 +202,7 @@ public class PlayerControl : MonoBehaviour
                 // Crouching - make collider shorter and wider, move it down
                 IsCrouching = true;
                 player_animator.SetBool("Crouching", true);
-                
+
                 boxCollider.size = new Vector2(originalColliderSize.x * 1.2f, originalColliderSize.y * 0.5f);
                 // Move the collider down by 25% of its original height to match the crouch
                 boxCollider.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y - originalColliderSize.y * 0.25f);
@@ -200,7 +213,7 @@ public class PlayerControl : MonoBehaviour
                 IsCrouching = false;
                 player_animator.SetBool("Grounded", true);
                 player_animator.SetBool("Crouching", false);
-                
+
                 boxCollider.size = originalColliderSize;
                 boxCollider.offset = originalColliderOffset;
             }
@@ -221,4 +234,5 @@ public class PlayerControl : MonoBehaviour
         // Implement interaction logic here
         Debug.Log("Player interacted with an object!");
     }
+    
 }
