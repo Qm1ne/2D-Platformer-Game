@@ -148,7 +148,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67587420}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &67587422
 Camera:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.37
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1000,6 +1000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Menu: {fileID: 557284468}
   playerControl: {fileID: 1633300525}
+  virtualCamera: {fileID: 0}
 --- !u!212 &934318788
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1192,6 +1193,7 @@ GameObject:
   - component: {fileID: 1061832371}
   - component: {fileID: 1061832370}
   - component: {fileID: 1061832369}
+  - component: {fileID: 1061832372}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1275,6 +1277,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1061832372
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061832367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1128119032
 GameObject:
   m_ObjectHideFlags: 0
@@ -3482,7 +3501,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1633300524}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 4.37
+    OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -3684,7 +3703,7 @@ PrefabInstance:
     - target: {fileID: 3637867000015967476, guid: 5fc71f6ca2c88e247b18fabd4da8b3cf,
         type: 3}
       propertyPath: m_Mass
-      value: 1.2
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7229420940739520238, guid: 5fc71f6ca2c88e247b18fabd4da8b3cf,
         type: 3}

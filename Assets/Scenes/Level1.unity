@@ -273,7 +273,12 @@ PrefabInstance:
     - target: {fileID: 3637867000015967476, guid: 5fc71f6ca2c88e247b18fabd4da8b3cf,
         type: 3}
       propertyPath: m_Mass
-      value: 1.2
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4737173255201428678, guid: 5fc71f6ca2c88e247b18fabd4da8b3cf,
+        type: 3}
+      propertyPath: havekey
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7229420940739520238, guid: 5fc71f6ca2c88e247b18fabd4da8b3cf,
         type: 3}
@@ -338,7 +343,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -472,6 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Menu: {fileID: 1947430105}
   playerControl: {fileID: 186940077}
+  virtualCamera: {fileID: 0}
 --- !u!212 &557234513
 SpriteRenderer:
   m_ObjectHideFlags: 0

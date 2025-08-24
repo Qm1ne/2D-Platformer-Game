@@ -167,6 +167,7 @@ public class PlayerControl : MonoBehaviour //shouldv made it a singleton
         // Handle sprite flipping and animation
         if (moveHorizontal != 0)
         {
+            
             // Flip the sprite based on movement direction
             transform.localScale = new Vector3(Mathf.Sign(moveHorizontal), 1, 1);
             // Set the exact horizontal speed for the blend tree
@@ -195,7 +196,7 @@ public class PlayerControl : MonoBehaviour //shouldv made it a singleton
                 // Jumping - make collider taller and thinner, move it up
                 boxCollider.size = new Vector2(originalColliderSize.x * 0.8f, originalColliderSize.y * 0.5f);
                 // Move the collider up by 10% of its height to match the jump animation
-                boxCollider.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y + originalColliderSize.y * 0.1f);
+                //boxCollider.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y + originalColliderSize.y * 0.3f);
             }
             else if (moveVertical < 0)
             {

@@ -6,11 +6,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using System;
 public class LevelCloser : MonoBehaviour
 {
     [SerializeField] private Image Menu;
 
     [SerializeField] private PlayerControl playerControl;
+    [SerializeField] private Cinemachine.CinemachineVirtualCamera virtualCamera;
     private void CloseLevel()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
@@ -41,6 +43,7 @@ public class LevelCloser : MonoBehaviour
         Debug.Log("showing  Menu...");
         if (playerControl.IsDead)
         {
+            SoundManager.Instance.PlaySound(Sounds.PlayerDeath);
             StartCoroutine(ShowMenuWithDelay());
         }
     }
@@ -50,6 +53,7 @@ public class LevelCloser : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         Debug.Log("Showing Menu...");
         Menu.gameObject.SetActive(true);
+        
     }
     void LateUpdate()
     {
@@ -61,7 +65,15 @@ public class LevelCloser : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerControl>() != null)
         {
             // Optionally, you can trigger the level close immediately when the player enters a specific area
-            CloseLevel();
+            if (playerControl.HaveKey)
+            {
+                CloseLevel();
+            }
+            else
+            {
+                Debug.Log("You need a key to proceed to the next level!");
+                CameraShake(10f, 0.2f);
+            }
         }
     }
 
@@ -79,5 +91,15 @@ public class LevelCloser : MonoBehaviour
         // Quit the application in a build
         Application.Quit();
 #endif
+    }
+    public void CameraShake(float intensity, float duration)
+    {
+        virtualCamera.GetComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        StartCoroutine(ResetCameraShakeAfterDelay(duration));
+    }
+
+    private string ResetCameraShakeAfterDelay(float duration)
+    {
+        throw new NotImplementedException();
     }
 }
